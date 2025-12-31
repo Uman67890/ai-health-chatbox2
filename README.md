@@ -1,73 +1,58 @@
-# React + TypeScript + Vite
+# 🏥 Wellness AI Chatbot
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A premium, responsive AI-powered wellness companion built with **React**, **TypeScript**, and **Framer Motion**. This application provides general wellness advice, symptom information, and emergency alerts through a sleek, glassmorphic interface.
 
-Currently, two official plugins are available:
+![AI Wellness Chatbot](https://images.unsplash.com/photo-1576091160550-217359f42f8c?auto=format&fit=crop&q=80&w=1000)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Features
 
-## React Compiler
+- 🧠 **Smart Keyword Matching**: Instant responses for common symptoms like headaches, fever, and fatigue.
+- 🚨 **Emergency Detection**: Scans for high-risk keywords (e.g., "chest pain") and provides immediate emergency instructions.
+- 🧘 **Wellness Tips**: Randomly generated health and wellness advice.
+- 🎭 **Premium UI/UX**: 
+  - Dynamic animations using Framer Motion.
+  - Modern "Glassmorphism" design system.
+  - Fully responsive for mobile and desktop.
+  - Simulated "AI Thinking" delay for a natural feel.
+- 🛡️ **Safe & Secure**: Provides general information with medical disclaimers.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🚀 Tech Stack
 
-## Expanding the ESLint configuration
+- **Framework**: React 19
+- **Language**: TypeScript
+- **Styling**: Vanilla CSS (Custom Design System)
+- **Icons**: Lucide React
+- **Animations**: Framer Motion
+- **Build Tool**: Vite
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🛠️ Installation & Setup
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/YOUR_USERNAME/wellness-ai-chatbot.git
+   cd wellness-ai-chatbot
+   ```
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+2. **Install dependencies**:
+   ```bash
+   npm install
+   ```
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+3. **Start the development server**:
+   ```bash
+   npm run dev
+   ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 📂 Project Structure
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- `src/useHealthAI.ts`: Custom hook containing the AI logic and state management.
+- `src/types.ts`: TypeScript interfaces and the AI knowledge base.
+- `src/App.tsx`: Main UI assembly with animations.
+- `src/App.css`: Core design system and glassmorphic styles.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 📝 Disclaimer
+
+This application is for informational purposes only and does not provide medical diagnoses or professional medical advice. Always consult with a qualified healthcare provider for medical concerns.
+
+---
+Created with ❤️ by Antigravity AI
