@@ -4,6 +4,20 @@ A premium, responsive AI-powered wellness companion built with **React**, **Type
 
 ![AI Wellness Chatbot](https://images.unsplash.com/photo-1576091160550-217359f42f8c?auto=format&fit=crop&q=80&w=1000)
 
+## 🏆 Hackathon Spotlight
+
+### ❗ The Problem
+Accessing quick, non-alarming health information is difficult. Users often face "information overload" when searching for simple symptoms, or worse, they miss critical warning signs of life-threatening emergencies.
+
+### 💡 The Solution: Wellness AI
+A **privacy-first**, **offline-ready** triage companion that prioritizes safety. By using local heuristic matching, it delivers instant guidance without sending sensitive health data to a server.
+
+### 🚀 Key Value Propositions
+- **Zero Latency**: Local processing ensures immediate responses even in low-connectivity areas.
+- **Privacy by Design**: No backend, no cookies, no tracking. Your health queries are yours alone.
+- **Calm UX**: Designed to reduce anxiety through a soothing Glassmorphic interface and clear, helpful language.
+- **Emergency-First Logic**: Intelligent triage system that detects high-risk keywords before processing general wellness advice.
+
 ## ✨ Features
 
 - 🧠 **Smart Keyword Matching**: Instant responses for symptoms, common diseases, and medication basics.
