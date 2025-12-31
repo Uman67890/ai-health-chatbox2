@@ -4,15 +4,13 @@ A premium, responsive AI-powered wellness companion built with **React**, **Type
 
 ![AI Wellness Chatbot](https://images.unsplash.com/photo-1576091160550-217359f42f8c?auto=format&fit=crop&q=80&w=1000)
 
-## 🏆 Hackathon Spotlight
-
-### ❗ The Problem
+### The Problem
 Accessing quick, non-alarming health information is difficult. Users often face "information overload" when searching for simple symptoms, or worse, they miss critical warning signs of life-threatening emergencies.
 
-### 💡 The Solution: Wellness AI
+### The Solution: Wellness AI
 A **privacy-first**, **offline-ready** triage companion that prioritizes safety. By using local heuristic matching, it delivers instant guidance without sending sensitive health data to a server.
 
-### 🚀 Key Value Propositions
+###  Key Value Propositions
 - **Zero Latency**: Local processing ensures immediate responses even in low-connectivity areas.
 - **Privacy by Design**: No backend, no cookies, no tracking. Your health queries are yours alone.
 - **Calm UX**: Designed to reduce anxiety through a soothing Glassmorphic interface and clear, helpful language.
@@ -25,14 +23,14 @@ A **privacy-first**, **offline-ready** triage companion that prioritizes safety.
 - 💊 **Medication Basics**: Simple usage guidelines for common over-the-counter meds like Paracetamol and Ibuprofen.
 - 🚨 **Emergency Detection**: Scans for high-risk keywords (e.g., "heart attack") and provides immediate instructions.
 - 🧘 **Wellness Tips**: Randomly generated health and wellness advice.
-- 🎭 **Premium UI/UX**: 
+-  **Premium UI/UX**: 
   - Dynamic animations using Framer Motion.
   - Modern "Glassmorphism" design system.
   - Fully responsive for mobile and desktop.
   - Simulated "AI Thinking" delay for a natural feel.
-- 🛡️ **Safe & Secure**: Provides general information with medical disclaimers.
+-  **Safe & Secure**: Provides general information with medical disclaimers.
 
-## 🚀 Tech Stack
+##  Tech Stack
 
 - **Framework**: React 19
 - **Language**: TypeScript
@@ -41,7 +39,7 @@ A **privacy-first**, **offline-ready** triage companion that prioritizes safety.
 - **Animations**: Framer Motion
 - **Build Tool**: Vite
 
-## 🛠️ Installation & Setup
+##  Installation & Setup
 
 1. **Clone the repository**:
    ```bash
@@ -59,24 +57,24 @@ A **privacy-first**, **offline-ready** triage companion that prioritizes safety.
    npm run dev
    ```
 
-## 📂 Project Structure
+##  Project Structure
 
 - `src/useHealthAI.ts`: Custom hook containing the AI logic and state management.
 - `src/types.ts`: TypeScript interfaces and the AI knowledge base.
 - `src/App.tsx`: Main UI assembly with animations.
 - `src/App.css`: Core design system and glassmorphic styles.
 
-## 🗺️ Future Roadmap
+##  Future Roadmap
 
 We are constantly looking to improve Wellness AI. Some planned features include:
-- 💊 **Enhanced Health Insights**: Integration with medical APIs for more detailed information.
-- 📊 **Health Tracking**: Secure storage for users to track their wellness journey over time.
-- 🎙️ **Voice Interaction**: Accessibility improvements through voice-to-text and text-to-voice.
-- 🌍 **Multilingual Support**: Providing wellness assistance in multiple languages.
-- ⌚ **Wearable Integration**: Syncing with devices like Apple Health or Google Fit for real-time health data.
-- 🥗 **Personalized Plans**: AI-generated nutrition and exercise recommendations based on user goals.
+-  **Enhanced Health Insights**: Integration with medical APIs for more detailed information.
+- **Health Tracking**: Secure storage for users to track their wellness journey over time.
+- **Voice Interaction**: Accessibility improvements through voice-to-text and text-to-voice.
+-  **Multilingual Support**: Providing wellness assistance in multiple languages.
+- **Wearable Integration**: Syncing with devices like Apple Health or Google Fit for real-time health data.
+-  **Personalized Plans**: AI-generated nutrition and exercise recommendations based on user goals.
 
-## 📝 Disclaimer
+##  Disclaimer
 
 This application is for informational purposes only and does not provide medical diagnoses or professional medical advice. Always consult with a qualified healthcare provider for medical concerns.
 
