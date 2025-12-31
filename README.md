@@ -6,8 +6,10 @@ A premium, responsive AI-powered wellness companion built with **React**, **Type
 
 ## ✨ Features
 
-- 🧠 **Smart Keyword Matching**: Instant responses for common symptoms like headaches, fever, and fatigue.
-- 🚨 **Emergency Detection**: Scans for high-risk keywords (e.g., "chest pain") and provides immediate emergency instructions.
+- 🧠 **Smart Keyword Matching**: Instant responses for symptoms, common diseases, and medication basics.
+- 🏥 **Disease Knowledge Base**: Information on conditions like Diabetes, Hypertension, and Flu.
+- 💊 **Medication Basics**: Simple usage guidelines for common over-the-counter meds like Paracetamol and Ibuprofen.
+- 🚨 **Emergency Detection**: Scans for high-risk keywords (e.g., "heart attack") and provides immediate instructions.
 - 🧘 **Wellness Tips**: Randomly generated health and wellness advice.
 - 🎭 **Premium UI/UX**: 
   - Dynamic animations using Framer Motion.

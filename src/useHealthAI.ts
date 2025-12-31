@@ -1,11 +1,11 @@
 import { useState, useCallback } from 'react';
-import { type Message, SYMPTOM_RESPONSES, WELLNESS_ADVICE, DEFAULT_RESPONSE, EMERGENCY_KEYWORDS, EMERGENCY_MESSAGE } from './types';
+import { type Message, SYMPTOM_RESPONSES, WELLNESS_ADVICE, DEFAULT_RESPONSE, EMERGENCY_KEYWORDS, EMERGENCY_MESSAGE, DISEASE_INFO, MEDICATION_INFO } from './types';
 
 export const useHealthAI = () => {
     const [messages, setMessages] = useState<Message[]>([
         {
             id: '1',
-            text: "Hello! I'm your AI Wellness Assistant. How can I help you feel better today? (Reminder: I provide general information, not medical diagnoses.)",
+            text: "Hello! I'm your AI Wellness Assistant. I can help with wellness tips, symptom info, diseases, or medication basics. (Reminder: I provide general information, not medical diagnoses.)",
             type: 'bot',
             timestamp: new Date(),
         },
@@ -27,13 +27,27 @@ export const useHealthAI = () => {
             }
         }
 
+        // Check for diseases
+        for (const [disease, info] of Object.entries(DISEASE_INFO)) {
+            if (lowerInput.includes(disease)) {
+                return info;
+            }
+        }
+
+        // Check for medication
+        for (const [med, info] of Object.entries(MEDICATION_INFO)) {
+            if (lowerInput.includes(med)) {
+                return info;
+            }
+        }
+
         // Check for wellness/advice requests
         if (lowerInput.includes('wellness') || lowerInput.includes('advice') || lowerInput.includes('tip')) {
             return WELLNESS_ADVICE[Math.floor(Math.random() * WELLNESS_ADVICE.length)];
         }
 
         if (lowerInput.includes('hello') || lowerInput.includes('hi')) {
-            return "Hello! I can provide wellness tips or information about common symptoms like headaches, fever, or fatigue. What's on your mind?";
+            return "Hello! I can provide info about symptoms, diseases like diabetes/flu, medications like ibuprofen, or wellness tips. What would you like to know?";
         }
 
         return DEFAULT_RESPONSE;

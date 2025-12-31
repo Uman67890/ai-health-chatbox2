@@ -108,6 +108,14 @@ function App() {
             >
               <RefreshCcw size={14} color="var(--primary)" /> Symptom Help
             </button>
+            <button
+              type="button"
+              className="glass"
+              style={{ padding: '0.5rem 1rem', borderRadius: '2rem', fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: '0.5rem', border: 'none' }}
+              onClick={() => sendMessage("Tell me about ibuprofen")}
+            >
+              <HeartPulse size={14} color="var(--accent)" /> Medication Info
+            </button>
           </div>
         </form>
       </main>
