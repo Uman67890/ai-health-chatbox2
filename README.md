@@ -19,9 +19,11 @@ The project prioritizes **Privacy-First Intelligence**:
 
 ## ✅ Proposed Solution
 Wellness AI acts as an **Instant Intelligence Layer**:
--   **Local Triage Engine**: Detects life-threatening keywords immediately and provides instant first-aid instructions.
--   **Structured Medical Cards**: Parsers unstructured Wikipedia data and local disease logs into clear, actionable segments (Symptoms, Precautions, Medications, Remedies).
--   **Calm UI/UX**: Uses glassmorphism and smooth animations to reduce user stress during health-related interactions.
+-   **♾️ Infinite Disease Database**: A hybrid engine combining a massive local library (50+ curated diseases) with an **Intelligent Wikipedia Parser** that can read and structure data for ANY disease in the world.
+-   **🌙 Smart Dark Mode**: A premium, glassmorphic UI that adapts to system preferences, featuring smooth transitions and enhanced readability for night-time usage.
+-   **🚨 Local Triage Engine**: Detects life-threatening keywords immediately and provides instant first-aid instructions.
+-   **🧬 Auto-Structured Medical Cards**: Parsers unstructured global medical data into clear, actionable segments (Symptoms, Precautions, Medications, Remedies) on the fly.
+-   **Calm UI/UX**: Uses glassmorphism and smooth animations to reduce user stress.
 
 ---
 
