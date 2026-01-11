@@ -43,8 +43,8 @@ A **privacy-first**, **offline-ready** triage companion that prioritizes safety.
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/YOUR_USERNAME/wellness-ai-chatbot.git
-   cd wellness-ai-chatbot
+   git clone https://github.com/Uman67890/ai-health-chatbox.git
+   cd ai-health-chatbox
    ```
 
 2. **Install dependencies**:
