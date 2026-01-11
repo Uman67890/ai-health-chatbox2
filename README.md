@@ -70,12 +70,23 @@ We are constantly looking to improve Wellness AI. Some planned features include:
 -  **Enhanced Health Insights**: Integration with medical APIs for more detailed information.
 - **Health Tracking**: Secure storage for users to track their wellness journey over time.
 - **Voice Interaction**: Accessibility improvements through voice-to-text and text-to-voice.
--  **Multilingual Support**: Providing wellness assistance in multiple languages.
+- **Multilingual Support**: Providing wellness assistance in multiple languages.
 - **Wearable Integration**: Syncing with devices like Apple Health or Google Fit for real-time health data.
--  **Personalized Plans**: AI-generated nutrition and exercise recommendations based on user goals.
+- **Personalized Plans**: AI-generated nutrition and exercise recommendations based on user goals.
 
-##  Disclaimer
+## 🤝 The Team
+
+This project was built with ❤️ by an amazing team of developers and specialists, all of whom contributed equally to the success of Wellness AI.
+
+- **[Gaurav](https://github.com/gk06012006-cpu)** - Lead Developer
+- **[Daksh](https://github.com/dakshpathak175-byte)** - UI/UX Designer
+- **[Umang](https://github.com/uman67890)** - Frontend Developer
+- **[Ayush](https://github.com/ayushbhatt3255-creator)** - Medical Data Specialist
+
+## Disclaimer
 
 This application is for informational purposes only and does not provide medical diagnoses or professional medical advice. Always consult with a qualified healthcare provider for medical concerns.
 
 ---
+
+<p align="center">Built with 💙 for the Global Community</p>
