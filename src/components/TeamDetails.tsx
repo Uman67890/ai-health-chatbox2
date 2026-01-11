@@ -30,9 +30,9 @@ const teamMembers = [
     {
         name: 'AYUSH',
         github: 'ayushbhatt3255-creator',
-        role: 'Medical Data Specialist',
-        contribution: 'Curated the comprehensive disease database and ensured medical accuracy across symptoms, remedies, and precautions. Built the wellness tips engine.',
-        skills: ['Data Curation', 'Health Science', 'Backend Services'],
+        role: 'Support Developer',
+        contribution: 'Assisted in core development and ensured medical accuracy across symptoms, remedies, and precautions. Built the wellness tips engine.',
+        skills: ['Medical Data', 'React Hooks', 'Support Engineering'],
         color: '#7c3aed'
     }
 ];

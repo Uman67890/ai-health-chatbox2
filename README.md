@@ -81,7 +81,7 @@ This project was built with ❤️ by an amazing team of developers and speciali
 - **[Gaurav](https://github.com/gk06012006-cpu)** - Lead Developer
 - **[Daksh](https://github.com/dakshpathak175-byte)** - UI/UX Designer
 - **[Umang](https://github.com/uman67890)** - Frontend Developer
-- **[Ayush](https://github.com/ayushbhatt3255-creator)** - Medical Data Specialist
+- **[Ayush](https://github.com/ayushbhatt3255-creator)** - Support Developer
 
 ## Disclaimer
 
