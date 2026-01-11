@@ -9,24 +9,41 @@ interface StorageData {
     };
 }
 
+const INITIAL_DATA: StorageData = {
+    metrics: {
+        weight: [],
+        sleep: [],
+        steps: [],
+        blood_pressure_sys: [],
+        blood_pressure_dia: [],
+        height: []
+    }
+};
+
 const getStorageData = (): StorageData => {
     const data = localStorage.getItem(STORAGE_KEY);
     if (!data) {
+        return INITIAL_DATA;
+    }
+    try {
+        const parsedData = JSON.parse(data, (key, value) => {
+            if (key === 'date') return new Date(value);
+            return value;
+        });
+
+        // Merge with initial data to ensure all keys exist
         return {
+            ...INITIAL_DATA,
+            ...parsedData,
             metrics: {
-                weight: [],
-                sleep: [],
-                steps: [],
-                blood_pressure_sys: [],
-                blood_pressure_dia: [],
-                height: []
+                ...INITIAL_DATA.metrics,
+                ...(parsedData.metrics || {})
             }
         };
+    } catch (error) {
+        console.error("Error parsing health data:", error);
+        return INITIAL_DATA;
     }
-    return JSON.parse(data, (key, value) => {
-        if (key === 'date') return new Date(value);
-        return value;
-    });
 };
 
 const saveStorageData = (data: StorageData) => {
