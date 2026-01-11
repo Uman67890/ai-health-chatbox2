@@ -3,13 +3,12 @@ import { Send, HeartPulse, Sparkles, User, Bot, ShieldAlert, Stethoscope, Shield
 import { motion, AnimatePresence } from 'framer-motion';
 import { useHealthAI } from './useHealthAI';
 import { HealthDashboard } from './components/HealthDashboard';
-import { TeamDetails } from './components/TeamDetails';
 import './App.css';
 
 function App() {
   const { messages, sendMessage, isTyping, getHealthInsights } = useHealthAI();
   const [conditionInput, setConditionInput] = useState('');
-  const [view, setView] = useState<'chat' | 'dashboard' | 'team'>('chat');
+  const [view, setView] = useState<'chat' | 'dashboard'>('chat');
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -51,19 +50,11 @@ function App() {
           >
             My Health
           </button>
-          <button
-            className={`nav-btn ${view === 'team' ? 'active' : ''}`}
-            onClick={() => setView('team')}
-          >
-            Team
-          </button>
         </div>
       </header>
 
       {view === 'dashboard' ? (
         <HealthDashboard />
-      ) : view === 'team' ? (
-        <TeamDetails />
       ) : (
         <main className="chat-window glass">
           <div className="messages-area">
