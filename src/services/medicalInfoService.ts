@@ -6,29 +6,40 @@ import { GLOBAL_DISEASE_DATA } from '../data/diseaseData';
 
 const LOCAL_CONDITIONS: Record<string, MedicalCondition> = GLOBAL_DISEASE_DATA;
 
-// --- ROBUST SENTENCE PARSER (Restored) ---
-// This parser finds sentences containing keywords, which is more robust than looking for headers.
-const extractSection = (text: string, keywords: string[]): string[] => {
+// --- BULLETPROOF SENTENCE PARSER ---
+const extractSection = (text: string, primaryKeywords: string[], secondaryKeywords: string[] = []): string[] => {
     // 1. Split text into clean sentences
     const sentences = text.split(/[.!?]+(?=\s|$)/);
 
-    // 2. Find relevant sentences containing key terms
-    const matches = sentences
+    // 2. Main Search: Look for strong matches
+    let matches = sentences
         .map(s => s.trim())
-        .filter(s => s.length > 20 && s.length < 300) // Readable length
+        .filter(s => s.length > 20 && s.length < 350)
         .filter(s => {
             const lowerS = s.toLowerCase();
-            return keywords.some(k => lowerS.includes(k.toLowerCase()));
+            return primaryKeywords.some(k => lowerS.includes(k.toLowerCase()));
         });
 
-    // 3. Deduplicate and limit
-    return [...new Set(matches)].slice(0, 6);
+    // 3. Fallback: If minimal matches, use secondary broader keywords
+    if (matches.length < 2 && secondaryKeywords.length > 0) {
+        const secondaryMatches = sentences
+            .map(s => s.trim())
+            .filter(s => s.length > 20 && s.length < 350)
+            .filter(s => {
+                const lowerS = s.toLowerCase();
+                return secondaryKeywords.some(k => lowerS.includes(k.toLowerCase()));
+            });
+        matches = [...matches, ...secondaryMatches];
+    }
+
+    // 4. Deduplicate and limit
+    return [...new Set(matches)].slice(0, 5);
 };
 
 export const fetchMedicalInfo = async (query: string): Promise<MedicalInfo> => {
     const normalizedQuery = query.toLowerCase();
 
-    // 1. Check Local Database (Primary Source for Details)
+    // 1. Check Local Database (Primary Source)
     let localData: MedicalCondition | undefined;
     for (const [key, data] of Object.entries(LOCAL_CONDITIONS)) {
         if (normalizedQuery.includes(key) || key.includes(normalizedQuery)) {
@@ -37,13 +48,12 @@ export const fetchMedicalInfo = async (query: string): Promise<MedicalInfo> => {
         }
     }
 
-    // 2. Fetch Wikipedia Data (Image & Fallback Text)
-    // We ALWAYS fetch this to get the image, even if we have local data.
+    // 2. Fetch Wikipedia Data (Global Fallback + Image Source)
     let wikiSummary = "";
     let wikiTitle = query;
     let wikiImage: string | undefined;
 
-    // Heuristic Extracted Data (Backup if local is missing)
+    // Fallback Data Containers
     let wikiSymptoms: string[] = [];
     let wikiPrecautions: string[] = [];
     let wikiMedications: string[] = [];
@@ -53,15 +63,15 @@ export const fetchMedicalInfo = async (query: string): Promise<MedicalInfo> => {
     try {
         const searchQuery = localData ? localData.name : query;
 
-        // A. Search for page
+        // A. Aggressive Search: Get the specific Page Title
         const searchRes = await fetch(`https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(searchQuery)}&format=json&origin=*`);
         const searchData = await searchRes.json();
 
         if (searchData.query?.search?.[0]) {
             wikiTitle = searchData.query.search[0].title;
 
-            // B. Fetch Details & Image
-            const contentRes = await fetch(`https://en.wikipedia.org/w/api.php?action=query&prop=extracts|pageimages&titles=${encodeURIComponent(wikiTitle)}&explaintext=1&piprop=original&format=json&origin=*`);
+            // B. Fetch FULL Content + Images for that Title
+            const contentRes = await fetch(`https://en.wikipedia.org/w/api.php?action=query&prop=extracts|pageimages&titles=${encodeURIComponent(wikiTitle)}&explaintext=1&pithumbsize=600&format=json&origin=*`);
             const contentData = await contentRes.json();
             const pages = contentData.query.pages;
             const pageId = Object.keys(pages)[0];
@@ -70,50 +80,66 @@ export const fetchMedicalInfo = async (query: string): Promise<MedicalInfo> => {
                 const page = pages[pageId];
                 const fullText = page.extract || "";
 
-                wikiSummary = fullText.split('\n')[0]; // First paragraph
-                wikiImage = page.original?.source;
+                wikiSummary = fullText.split('\n')[0];
+                // Grabbing image: Try original, then thumbnail
+                wikiImage = page.original?.source || page.thumbnail?.source;
 
-                // --- ROBUST PARSING (Refilled) ---
+                // --- GENERATIVE PARSING (Only if local data is missing) ---
                 if (!localData) {
-                    console.log("Generating fallback data for:", wikiTitle);
-                    wikiSymptoms = extractSection(fullText, ["symptom", "sign", "pain", "fever", "feel", "appear", "manifest"]);
-                    wikiCauses = extractSection(fullText, ["cause", "result", "due to", "spread", "virus", "bacteria", "transmit"]);
-                    wikiPrecautions = extractSection(fullText, ["prevent", "avoid", "protect", "vaccine", "risk", "hygiene", "wash"]);
-                    wikiMedications = extractSection(fullText, ["treat", "medication", "drug", "prescribe", "therapy", "doctor", "manage"]);
-                    wikiRemedies = extractSection(fullText, ["remedy", "home", "lifestyle", "diet", "water", "rest", "natural", "self-care"]);
+                    console.log("Generating global data for:", wikiTitle);
+
+                    wikiSymptoms = extractSection(fullText,
+                        ["symptom", "sign", "present with", "characterized by", "pain", "fever", "rash"],
+                        ["feel", "appear", "suffer", "experience", "manifest"]
+                    );
+
+                    wikiCauses = extractSection(fullText,
+                        ["cause", "caused by", "due to", "result of", "trasmission", "spread", "virus", "bacteria"],
+                        ["genetic", "risk factor", "origin", "etiology", "infect"]
+                    );
+
+                    wikiPrecautions = extractSection(fullText,
+                        ["prevention", "prevent", "avoid", "vaccine", "prophylaxis", "screen", "hygiene"],
+                        ["protect", "reduce risk", "control", "stop", "mask"]
+                    );
+
+                    wikiMedications = extractSection(fullText,
+                        ["treatment", "treat", "medication", "drug", "antibiotic", "therapy", "prescribe", "surgery"],
+                        ["manage", "heal", "cure", "intervention", "doctor"]
+                    );
+
+                    wikiRemedies = extractSection(fullText,
+                        ["home remedy", "lifestyle", "diet", "nutrition", "self-care", "management"],
+                        ["water", "rest", "exercise", "avoid", "sleep", "food", "natural"]
+                    );
                 }
             }
         }
     } catch (e) {
-        console.error("Wiki fetch failed:", e);
+        console.error("Global search failed:", e);
     }
 
-    // 3. Construct Final Response
-    // If we found NOTHING (No local, No wiki), return error
+    // 3. Failure State Handler
     if (!localData && !wikiSummary) {
         return {
             title: query,
-            summary: "I couldn't find information on this specific condition. Please check the spelling or try a more common medical term.",
+            summary: "I searched the global database but found no match. Please try ensuring the spelling is correct (e.g., 'Pneumonia' instead of 'numonia').",
             disclaimer: DISCLAIMER
         };
     }
 
-    // 4. Merge Logic:
-    // - Title: Local Name > Wiki Title
-    // - Image: Wiki Image (Always)
-    // - Summary: Wiki Summary (More natural) > Local Summary
-    // - Details: Local Details (Verified) > Wiki Heuristics (Generated)
-
+    // 4. Intelligent Merge (The "All World" Logic)
     return {
         title: localData ? localData.name : wikiTitle,
-        summary: wikiSummary ? (wikiSummary.slice(0, 350) + "...") : `Details regarding ${localData?.name}.`,
-        imageUrl: wikiImage,
+        summary: wikiSummary ? (wikiSummary.slice(0, 350) + "...") : `Clinical details for ${localData?.name || wikiTitle}.`,
+        imageUrl: wikiImage, // Guaranteed from Wiki if available
 
-        causes: localData?.causes || (wikiCauses.length ? wikiCauses : undefined),
-        symptoms: localData?.symptoms || (wikiSymptoms.length ? wikiSymptoms : undefined),
-        precautions: localData?.precautions || (wikiPrecautions.length ? wikiPrecautions : undefined),
-        medications: localData?.medications || (wikiMedications.length ? wikiMedications : undefined),
-        homeRemedies: localData?.homeRemedies || (wikiRemedies.length ? wikiRemedies : ["Rest, hydration, and consulting a healthcare provider."]),
+        // Use Local if exists, otherwise Wiki, otherwise Generic Fallback
+        causes: (localData?.causes) || (wikiCauses.length ? wikiCauses : undefined),
+        symptoms: (localData?.symptoms) || (wikiSymptoms.length ? wikiSymptoms : ["General symptoms may vary. Consult a professional."]),
+        precautions: (localData?.precautions) || (wikiPrecautions.length ? wikiPrecautions : undefined),
+        medications: (localData?.medications) || (wikiMedications.length ? wikiMedications : undefined),
+        homeRemedies: (localData?.homeRemedies) || (wikiRemedies.length ? wikiRemedies : ["Rest, hydration, and healthy diet are generally recommended. Consult a doctor."]),
 
         disclaimer: DISCLAIMER
     };
