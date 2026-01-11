@@ -122,6 +122,5 @@ sequenceDiagram
 *Wellness AI is a tool for information and educational purposes only. It does not provide medical diagnoses. Always call local emergency services in case of a medical crisis.*
 
 ---
-<p align="center">
-  Built with ❤️ for Global Well-being | Licensed under MIT
-</p>
+
+  Built with ❤️ for Global Well-being 
