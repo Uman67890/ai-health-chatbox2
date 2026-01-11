@@ -110,14 +110,6 @@ sequenceDiagram
 
 ---
 
-## 🤝 The Team (Equal Contributions)
--   **[UMANG](https://github.com/uman67890)**: Lead Developer & Architect
--   **[DAKSH](https://github.com/dakshpathak175-byte)**: UI/UX Designer
--   **[GAURAV](https://github.com/gk06012006-cpu)**: Frontend Engineer
--   **[AYUSH](https://github.com/ayushbhatt3255-creator)**: Support Developer
-
----
-
 ## ⚖️ Disclaimer
 *Wellness AI is a tool for information and educational purposes only. It does not provide medical diagnoses. Always call local emergency services in case of a medical crisis.*
 
