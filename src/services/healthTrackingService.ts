@@ -16,7 +16,10 @@ const getStorageData = (): StorageData => {
             metrics: {
                 weight: [],
                 sleep: [],
-                steps: []
+                steps: [],
+                blood_pressure_sys: [],
+                blood_pressure_dia: [],
+                height: []
             }
         };
     }

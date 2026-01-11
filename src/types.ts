@@ -56,7 +56,7 @@ export interface MedicalInfo {
   disclaimer: string;
 }
 
-export type MetricType = 'weight' | 'sleep' | 'steps';
+export type MetricType = 'weight' | 'sleep' | 'steps' | 'blood_pressure_sys' | 'blood_pressure_dia' | 'height';
 
 export interface HealthMetric {
   id: string;

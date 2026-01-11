@@ -1,15 +1,36 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Send, HeartPulse, Sparkles, User, Bot, ShieldAlert, Stethoscope, ShieldCheck, Pill, Thermometer, Coffee, AlignLeft, Moon } from 'lucide-react';
+import { Send, HeartPulse, Sparkles, User, Bot, ShieldAlert, Stethoscope, ShieldCheck, Pill, Thermometer, Coffee, AlignLeft, Moon, Sun } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useHealthAI } from './useHealthAI';
 import { HealthDashboard } from './components/HealthDashboard';
 import './App.css';
+import './enhancements.css';
 
 function App() {
   const { messages, sendMessage, isTyping, getHealthInsights } = useHealthAI();
   const [conditionInput, setConditionInput] = useState('');
   const [view, setView] = useState<'chat' | 'dashboard'>('chat');
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    const saved = localStorage.getItem('theme');
+    return saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  });
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  // Apply theme on mount and when changed
+  useEffect(() => {
+    const root = document.documentElement;
+    if (isDarkMode) {
+      root.setAttribute('data-theme', 'dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      root.removeAttribute('data-theme');
+      localStorage.setItem('theme', 'light');
+    }
+  }, [isDarkMode]);
+
+  const toggleTheme = () => {
+    setIsDarkMode(!isDarkMode);
+  };
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -49,6 +70,19 @@ function App() {
             onClick={() => setView('dashboard')}
           >
             My Health
+          </button>
+          <button
+            className="theme-toggle-btn"
+            onClick={toggleTheme}
+            aria-label="Toggle theme"
+          >
+            <motion.div
+              initial={false}
+              animate={{ rotate: isDarkMode ? 180 : 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
+            </motion.div>
           </button>
         </div>
       </header>
