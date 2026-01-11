@@ -3,175 +3,230 @@ import { type MedicalInfo, type MedicalCondition } from '../types';
 const DISCLAIMER = "⚠️ MEDICAL DISCLAIMER: This information is for educational purposes only and is not medical advice. Always consult a healthcare professional for diagnosis and treatment.";
 
 const LOCAL_CONDITIONS: Record<string, MedicalCondition> = {
+    // --- RESPIRATORY ---
     "flu": {
         name: "Influenza (Flu)",
-        causes: ["Influenza viruses", "Airborne droplets", "Surface contact"],
-        symptoms: ["Fever (100°F+)", "Dry cough", "Sore throat", "Muscle aches", "Fatigue"],
-        precautions: ["Annual vaccine", "Frequent handwashing", "Avoiding crowds", "Wearing masks"],
-        medications: ["Oseltamivir (Tamiflu)", "Acetaminophen/Paracetamol", "Ibuprofen"],
-        homeRemedies: ["Drink plenty of warm fluids", "Bed rest", "Saltwater gargle", "Steam inhalation"]
+        causes: ["Influenza viruses (A, B, C)", "Airborne droplets", "Direct contact"],
+        symptoms: ["Sudden high fever", "Dry cough", "Sore throat", "Severe muscle aches", "Fatigue"],
+        precautions: ["Annual flu vaccine", "Frequent handwashing", "Masking in crowds", "Isolation"],
+        medications: ["Oseltamivir (Tamiflu)", "Baloxavir (Xofluza)", "Acetaminophen", "Ibuprofen"],
+        homeRemedies: ["Warm broth and excessive fluids", "Steam inhalation with eucalyptus", "Saltwater gargle", "Complete bed rest"]
     },
-    "migraine": {
-        name: "Migraine",
-        causes: ["Genetic factors", "Stress", "Sensory triggers", "Sleep deprivation"],
-        symptoms: ["Pulsating headache", "Nausea", "Light sensitivity", "Blurred vision"],
-        precautions: ["Sleep schedule", "Stress management", "Identify food triggers", "Stay hydrated"],
-        medications: ["Sumatriptan", "Ibuprofen", "Naproxen", "Aspirin"],
-        homeRemedies: ["Rest in a dark/quiet room", "Cold compress on forehead", "Peppermint oil", "Ginger tea"]
+    "covid": {
+        name: "COVID-19",
+        causes: ["SARS-CoV-2 virus", "Airborne aerosols", "Close contact"],
+        symptoms: ["Fever/Chills", "New loss of taste/smell", "Shortness of breath", "Fatigue", "Dry cough"],
+        precautions: ["Vaccination & Boosters", "N95/KN95 Masking", "Ventilation", "Hand hygiene"],
+        medications: ["Paxlovid (Nirmatrelvir/Ritonavir)", "Remdesivir", "Molnupiravir", "Dexamethasone (severe)"],
+        homeRemedies: ["Prone positioning for breathing", "Honey and lemon for cough", "Hydration with electrolytes", "Zinc and Vitamin C/D supplements (supportive)"]
     },
-    "diabetes": {
-        name: "Diabetes (Type 2)",
-        causes: ["Insulin resistance", "Excess weight", "Physical inactivity", "Genetics"],
-        symptoms: ["Excessive thirst", "Frequent urination", "Blurred vision", "Fatigue"],
-        precautions: ["Balanced diet", "Daily exercise", "Weight control", "Blood sugar monitoring"],
-        medications: ["Metformin", "Sulfonylureas", "Insulin", "SGLT2 inhibitors"],
-        homeRemedies: ["Manage carb intake", "Increase fiber", "Stay hydrated", "Regular physical activity"]
-    },
-    "malaria": {
-        name: "Malaria",
-        causes: ["Plasmodium falciparum (most deadly) and P. vivax parasites", "Bite of an infected female Anopheles mosquito", "Transfusions or mother-to-child (rare)"],
-        symptoms: ["Cyclical high fever (often every 48-72 hours)", "Shaking chills followed by intense heat", "Splenomegaly (enlarged spleen)", "Anemia and Jaundice", "Dry cough and abdominal pain", "Severe headache and muscle aches"],
-        precautions: ["Long-lasting insecticidal nets (LLINs)", "Indoor residual spraying (IRS)", "DEET/Picaridin-based repellents", "Antimalarial chemoprophylaxis for travelers", "Clearing stagnant water to prevent breeding"],
-        medications: ["Artemether-lumefantrine (Coartem)", "Chloroquine or Quinine sulfate", "Primaquine for liver-stage parasites", "Atovaquone-proguanil (Malarone)"],
-        homeRemedies: ["ORS (Oral Rehydration Salts) for fluid loss", "Tepid water sponging to reduce core temperature", "High-carbohydrate, high-protein diet", "Absolute bed rest in a well-ventilated room"],
-        diseaseKnowledge: ["Malaria is not contagious; it cannot be spread from person to person.", "The incubation period is typically 10–15 days after the mosquito bite.", "Over 200 million clinical cases occur globally each year.", "P. falciparum accounts for the majority of malaria deaths globally."]
-    },
-    "hypertension": {
-        name: "Hypertension (High Blood Pressure)",
-        causes: ["High salt intake", "Age", "Genetics", "Chronic stress"],
-        symptoms: ["Often no signs", "Morning headaches", "Nosebleeds", "Vision changes"],
-        precautions: ["Reduce sodium", "Regular cardio", "Limit alcohol", "Deep breathing"],
-        medications: ["ACE inhibitors", "Beta-blockers", "Diuretics", "Calcium channel blockers"],
-        homeRemedies: ["DASH diet", "Low-sodium meals", "Potassium-rich foods", "Daily brisk walk"]
-    },
-    "ebola": {
-        name: "Ebola Virus Disease",
-        causes: ["Ebolavirus", "Direct contact with blood/fluids", "Infected animals"],
-        symptoms: ["Fever", "Severe headache", "Muscle pain", "Weakness", "Internal bleeding"],
-        precautions: ["Avoid contact with fluids", "Sanitization", "Safe burial practices", "Hand hygiene"],
-        medications: ["Inmazeb", "Ebanga", "Supportive care (IV fluids)"],
-        homeRemedies: ["Strict isolation", "Replacement of electrolytes", "Nutritious recovery diet"]
-    },
-    "measles": {
-        name: "Measles (Rubeola)",
-        causes: ["Measles virus", "Airborne droplets", "Coughing/Sneezing"],
-        symptoms: ["High fever", "Koplik spots", "Red rash", "Cough", "Runny nose"],
-        precautions: ["MMR vaccine", "Isolation", "Hand hygiene", "Quarantine"],
-        medications: ["Vitamin A", "Acetaminophen", "Antibiotics (if secondary infection)"],
-        homeRemedies: ["Rest in dimmed light", "Humidifier use", "Increased fluid intake"]
-    },
-    "typhoid": {
-        name: "Typhoid Fever",
-        causes: ["Salmonella Typhi bacteria", "Contaminated food/water"],
-        symptoms: ["Prolonged fever", "Abdominal pain", "Rosy spots on chest", "Constipation/Diarrhea"],
-        precautions: ["Typhoid vaccine", "Drink boiled water", "Eat hot/peeled food", "Handwashing"],
-        medications: ["Ciprofloxacin", "Azithromycin", "Ceftriaxone"],
-        homeRemedies: ["Cold water sponge", "ORS (Electrolytes)", "High-protein diet"],
-        diseaseKnowledge: ["Caused by Salmonella Typhi, which only lives in humans.", "Spread through the 'fecal-oral' route via contaminated food.", "Modern antibiotics have made typhoid relatively easy to treat in healthy adults.", "If untreated, it can lead to intestinal perforation or internal bleeding."]
-    },
-    "hepatitis": {
-        name: "Hepatitis B",
-        causes: ["HBV virus", "Infected blood", "Sexual contact", "Needle sharing"],
-        symptoms: ["Jaundice (yellow skin)", "Dark urine", "Extreme fatigue", "Nausea"],
-        precautions: ["Hepatitis B vaccine", "Safe practices", "Don't share razors/needles"],
-        medications: ["Tenofovir", "Entecavir", "Interferon injections"],
-        homeRemedies: ["Avoid alcohol", "High-carbohydrate diet", "Physical rest"]
-    },
-    "anemia": {
-        name: "Iron Deficiency Anemia",
-        causes: ["Lack of iron", "Blood loss", "Pregnancy", "Poor diet"],
-        symptoms: ["Pale skin", "Shortness of breath", "Cold hands/feet", "Heart palpitations"],
-        precautions: ["Iron-rich diet", "Regular screenings", "Limit tea/coffee with meals"],
-        medications: ["Ferrous sulfate", "Iron injections", "B12 supplements"],
-        homeRemedies: ["Eat spinach/lentils", "Vitamin C with iron (oranges)", "Cook in cast iron pots"]
+    "cold": {
+        name: "Common Cold",
+        causes: ["Rhinovirus (most common)", "Coronavirus", "RSV"],
+        symptoms: ["Runny/stuffy nose", "Sore throat", "Sneezing", "Mild cough", "Low-grade fever"],
+        precautions: ["Hand washing", "Avoid touching face", "Disinfect surfaces"],
+        medications: ["Decongestants (Pseudoephedrine)", "Antihistamines", "Cough suppressants (Dextromethorphan)"],
+        homeRemedies: ["Chicken soup (anti-inflammatory)", "Ginger tea with honey", "Humidifier usage", "Saline nasal drops"]
     },
     "asthma": {
-        name: "Asthma",
-        causes: ["Airborne allergens", "Respiratory infections", "Cold air", "Exercise"],
-        symptoms: ["Wheezing", "Chest tightness", "Shortness of breath", "Coughing"],
-        precautions: ["Avoid triggers", "Air purifiers", "Regular checkups"],
-        medications: ["Albuterol (Inhaler)", "Fluticasone", "Montelukast", "Salmeterol"],
-        homeRemedies: ["Steam inhalation", "Breathing exercises (Buteyko)", "Avoid cold/dry air"]
+        name: "Bronchial Asthma",
+        causes: ["Allergens (pollen, dust)", "Pollution", "Cold air", "Exercise", "Genetics"],
+        symptoms: ["Wheezing", "Chest tightness", "Shortness of breath", "Night-time coughing"],
+        precautions: ["Identify and avoid triggers", "Air purifiers", "Flu vaccination"],
+        medications: ["Albuterol (Rescue Inhaler)", "Fluticasone (Steroid)", "Montelukast", "Salmeterol"],
+        homeRemedies: ["Caffeine (mild bronchodilator)", "Steam inhalation", "Breathing exercises (Buteyko/Pranayama)", "Ginger/Turmeric tea"]
     },
     "pneumonia": {
         name: "Pneumonia",
         causes: ["Bacteria (Streptococcus)", "Viruses", "Fungi", "Aspiration"],
-        symptoms: ["Chest pain when breathing", "Phlegmy cough", "Fever/Chills", "Confusion (in elderly)"],
-        precautions: ["Pneumococcal vaccine", "Flu shot", "No smoking", "Handwashing"],
-        medications: ["Antibiotics (Macrolides)", "Azithromycin", "Cough suppressants"],
-        homeRemedies: ["Warm peppermint tea", "Garlic tea", "Chest massage", "Hydration"]
+        symptoms: ["Productive cough (green/yellow mucus)", "Stabbing chest pain", "High fever with chills", "Shortness of breath"],
+        precautions: ["Pneumococcal vaccine", "Quit smoking", "Good hygiene"],
+        medications: ["Antibiotics (Azithromycin, Amoxicillin)", "Antivirals", "Fever reducers"],
+        homeRemedies: ["Warm peppermint tea", "Chest percussion (physiotherapy)", "Elecampane root tea (expectorant)", "Hydration"]
     },
     "tuberculosis": {
         name: "Tuberculosis (TB)",
-        causes: ["Bacterial infection", "Prolonged close contact"],
-        symptoms: ["Cough for 3+ weeks", "Blood in sputum", "Night sweats", "Weight loss"],
-        precautions: ["BCG Vaccine", "Well-ventilated rooms", "Covering mouth", "Hand hygiene"],
-        medications: ["Isoniazid", "Rifampicin", "Pyrazinamide", "Ethambutol"],
-        homeRemedies: ["Nutrient-rich diet", "Garlic and ginger (supportive)", "Avoid smoke/dust"]
+        causes: ["Mycobacterium tuberculosis bacteria", "Airborne transmission"],
+        symptoms: ["Coughing up blood", "Weight loss", "Night sweats", "Fever", "Fatigue"],
+        precautions: ["BCG Vaccine", "Well-ventilated spaces", "N95 masks for caregivers"],
+        medications: ["Isoniazid", "Rifampicin", "Pyrazinamide", "Ethambutol (RIPE therapy)"],
+        homeRemedies: ["High-protein diet", "Pineapple (bromelain for mucus)", "Garlic (antimicrobial support)", "Sunlight (Vitamin D)"]
+    },
+    "bronchitis": {
+        name: "Bronchitis",
+        causes: ["Viral Flu/Cold", "Smoking", "Pollution"],
+        symptoms: ["Persistent cough with mucus", "Wheezing", "Low fever", "Chest discomfort"],
+        precautions: ["Avoid smoke/fumes", "Mask wearing", "Hand hygiene"],
+        medications: ["Cough suppressants", "Bronchodilators", "Anti-inflammatories"],
+        homeRemedies: ["Honey and warm water", "Steam with thyme", "Hydration", "Avoid dairy (may thicken mucus)"]
+    },
+
+    // --- VECTOR-BORNE & TROPICAL ---
+    "malaria": {
+        name: "Malaria",
+        causes: ["Plasmodium parasites", "Anopheles mosquito bite"],
+        symptoms: ["Cyclical high fever", "Shaking chills", "Sweating", "Headache", "Nausea"],
+        precautions: ["Mosquito bets", "DEET repellent", "Antimalarial prophylaxis", "Long sleeves"],
+        medications: ["Artemether-lumefantrine (Coartem)", "Chloroquine", "Doxycycline", "Primaquine"],
+        homeRemedies: ["Cinnamon and basil tea", "Grapefruit (Quinine content - *caution with meds*)", "Ginger water", "Tepid sponging"]
     },
     "dengue": {
         name: "Dengue Fever",
-        causes: ["Dengue virus", "Day-biting Aedes mosquitoes"],
-        symptoms: ["High fever", "Joint/bone pain", "Pain behind eyes", "Skin rash"],
-        precautions: ["Mosquito repellent", "Screening windows", "Full-length clothing"],
-        medications: ["Acetaminophen (strictly)", "Avoid Ibuprofen/Aspirin", "IV fluids"],
-        homeRemedies: ["Papaya leaf extract", "Coconut water", "Stay hydrated", "Bed rest"]
+        causes: ["Dengue virus", "Aedes aegypti mosquito"],
+        symptoms: ["Sudden high fever", "Severe joint/bone pain ('Breakbone fever')", "Pain behind eyes", "Rash"],
+        precautions: ["Eliminate standing water", "Mosquito repellents", "Screening windows"],
+        medications: ["Acetaminophen (Paracetamol) ONLY - Avoid Aspirin/Ibuprofen due to bleeding risk", "IV fluids"],
+        homeRemedies: ["Papaya leaf juice (for platelets)", "Coconut water", "Neem leaf tea", "Kiwi fruit"]
     },
-    "alzheimer": {
-        name: "Alzheimer's",
-        causes: ["Protein plaques in brain", "Aging", "Genetics"],
-        symptoms: ["Progressive memory loss", "Wandering", "Confusion", "Language problems"],
-        precautions: ["Mental exercises", "Heart-healthy diet", "Physical activity"],
-        medications: ["Donepezil", "Memantine", "Rivastigmine"],
-        homeRemedies: ["Structured daily routine", "Safe environment", "Memory aids/reminders"]
-    },
-    "covid": {
-        name: "COVID-19",
-        causes: ["SARS-CoV-2 virus", "Airborne transmission"],
-        symptoms: ["Fever/Chills", "Dry cough", "Shortness of breath", "Loss of taste"],
-        precautions: ["Masking", "Social distancing", "Hand sanitation", "Vaccination"],
-        medications: ["Paxlovid", "Molnupiravir", "Symptomatic support"],
-        homeRemedies: ["Hydration", "Prone breathing techniques", "Warm decoctions (Kadha)", "Gargling"]
-    },
-    "depression": {
-        name: "Clinical Depression",
-        causes: ["Chemical imbalance", "Life stress", "Trauma", "Family history"],
-        symptoms: ["Low mood", "Sleep issues", "Change in appetite", "Loss of energy"],
-        precautions: ["Physical movement", "Social connection", "Regular sleep", "Avoiding alcohol"],
-        medications: ["SSRIs (Prozac, Zoloft)", "SNRIs", "Psychotherapy"],
-        homeRemedies: ["Morning sunlight", "Yoga/Meditation", "Journaling", "Nutritious diet"]
-    },
-    "cancer": {
-        name: "Cancer",
-        causes: ["DNA mutations", "Carcinogens (Tobacco, UV)", "Obesity"],
-        symptoms: ["Lumps", "Unexplained weight loss", "Fatigue", "Persistent cough"],
-        precautions: ["No tobacco", "Healthy weight", "Sun protection", "Regular screenings"],
-        medications: ["Chemotherapy", "Targeted therapy", "Surgery", "Radiation"],
-        homeRemedies: ["Ginger for nausea", "Small/frequent meals", "Light stretching", "Support groups"]
+    "typhoid": {
+        name: "Typhoid Fever",
+        causes: ["Salmonella Typhi bacteria", "Contaminated food/water"],
+        symptoms: ["Step-ladder rising fever", "Stomach pain", "Headache", "Rose spots rash", "Constipation/Diarrhea"],
+        precautions: ["Typhoid vaccine", "Drink boiled/bottled water", "Avoid raw street food"],
+        medications: ["Ciprofloxacin", "Azithromycin", "Ceftriaxone"],
+        homeRemedies: ["Banana and yogurt", "Apple cider vinegar", "ORS (Oral Rehydration Solution)", "Honey and warm water"]
     },
     "cholera": {
         name: "Cholera",
-        causes: ["Vibrio cholerae bacteria", "Contaminated water/food"],
-        symptoms: ["Painless watery diarrhea (Rice water)", "Leg cramps", "Rapid heart rate"],
-        precautions: ["Drink safe water", "Wash hands often", "Cook food thoroughly"],
-        medications: ["Oral Rehydration (ORS)", "Doxycycline", "Azithromycin"],
-        homeRemedies: ["Lemon water", "Probiotics", "Coconut water", "Thin gruel"]
+        causes: ["Vibrio cholerae", "Unsafe water", "Poor sanitation"],
+        symptoms: ["Profuse watery diarrhea ('Rice-water stool')", "Vomiting", "Severe dehydration", "Muscle cramps"],
+        precautions: ["Water purification", "Safe sanitation", "Cholera vaccine"],
+        medications: ["Doxycycline", "Azithromycin", "Zinc supplements"],
+        homeRemedies: ["Homemade ORS (Water + Sugar + Salt)", "Lemon water", "Coconut water", "Rice water"]
     },
     "zika": {
         name: "Zika Virus",
-        causes: ["Zika virus", "Aedes mosquito bites", "Sexual transmission"],
-        symptoms: ["Fever", "Rash", "Joint pain", "Conjunctivitis (red eyes)"],
-        precautions: ["Mosquito prevention", "Safe practices", "Protective clothing"],
-        medications: ["Rest", "Fluids", "Acetaminophen for pain"],
-        homeRemedies: ["Eucalyptus oil repellent", "Bed rest", "Hydrating soups"]
+        causes: ["Zika virus", "Aedes mosquito", "Sexual contact"],
+        symptoms: ["Mild fever", "Rash", "Joint pain", "Red eyes"],
+        precautions: ["Prevent mosquito bites", "Safe sex (can stay in fluids)"],
+        medications: ["Rest", "Fluids", "Acetaminophen"],
+        homeRemedies: ["Complete rest", "Oatmeal bath for rash", "Cold compress"]
     },
-    "polio": {
-        name: "Poliomyelitis (Polio)",
-        causes: ["Poliovirus", "Fecal-oral route", "Contaminated food/water"],
-        symptoms: ["Nausea", "Stiffness in back/neck", "Muscle weakness", "Paralysis"],
-        precautions: ["Polio vaccine (OPV/IPV)", "Sanitation", "Hygiene"],
-        medications: ["Pain relievers", "Physical therapy", "Portable ventilators"],
-        homeRemedies: ["Nutritious diet", "Gentle massage", "Bed rest during acute phase"]
+    "chikungunya": {
+        name: "Chikungunya",
+        causes: ["Chikungunya virus", "Mosquito bite"],
+        symptoms: ["Severe joint pain", "Fever", "Rash", "Muscle pain"],
+        precautions: ["Mosquito control", "Protective clothing"],
+        medications: ["Naproxen", "Ibuprofen", "Paracetamol"],
+        homeRemedies: ["Cold packs for joints", "Turmeric milk", "Ginger tea", "Epsom salt bath"]
+    },
+
+    // --- CHRONIC & LIFESTYLE ---
+    "diabetes": {
+        name: "Diabetes Mellitus (Type 2)",
+        causes: ["Insulin resistance", "Obesity", "Genetics", "Sedentary lifestyle"],
+        symptoms: ["Polyuria (frequent urination)", "Polydipsia (excess thirst)", "Blurred vision", "Slow healing sores"],
+        precautions: ["Weight management", "Low-glycemic diet", "Regular exercise"],
+        medications: ["Metformin", "Glipizide", "SGLT2 inhibitors (Jardiance)", "Insulin (if advanced)"],
+        homeRemedies: ["Bitter melon juice", "Fenugreek seeds", "Cinnamon tea", "Apple cider vinegar"]
+    },
+    "hypertension": {
+        name: "Hypertension (BP)",
+        causes: ["High salt intake", "Stress", "Obesity", "Age", "Genetics"],
+        symptoms: ["Often silent", "Morning headaches", "Nosebleeds", "Tinnitus (ear ringing)"],
+        precautions: ["DASH diet", "Reduce sodium (<2.3g/day)", "Quit smoking"],
+        medications: ["Lisinopril", "Amlodipine", "Losartan", "Hydrochlorothiazide"],
+        homeRemedies: ["Hibiscus tea", "Garlic", "Beetroot juice", "Meditation/Yoga"]
+    },
+    "heart_disease": {
+        name: "Coronary Artery Disease",
+        causes: ["Plaque buildup (Cholesterol)", "Smoking", "High BP", "Diabetes"],
+        symptoms: ["Chest pain (Angina)", "Shortness of breath", "Fatigue", "Heart palpitations"],
+        precautions: ["Heart-healthy diet", "Regular cardio", "Stress management"],
+        medications: ["Atorvastatin", "Aspirin", "Beta-blockers (Metoprolol)", "Nitroglycerin"],
+        homeRemedies: ["Omega-3 rich foods (Fish/Flax)", "Garlic", "Green tea", "Arjuna bark powder"]
+    },
+    "kidney_stone": {
+        name: "Kidney Stones (Renal Calculi)",
+        causes: ["Dehydration", "High oxalate diet", "Obesity", "Family history"],
+        symptoms: ["Severe side/back pain", "Blood in urine", "Nausea", "Frequent urination"],
+        precautions: ["Drink 3L+ water/day", "Limit salt", "Limit animal protein"],
+        medications: ["Tamsulosin (to relax ureter)", "Pain relievers (Ketorolac)", "Potassium citrate"],
+        homeRemedies: ["Lemon juice + Olive oil", "Apple cider vinegar", "Kidney bean broth", "Basil juice"]
+    },
+    "gerd": {
+        name: "GERD (Acid Reflux)",
+        causes: ["Weak esophageal sphincter", "Obesity", "Spicy food", "Late eating"],
+        symptoms: ["Heartburn", "Regurgitation", "Chest pain", "Lump in throat"],
+        precautions: ["Eat small meals", "Don't lie down after eating", "Elevate head of bed"],
+        medications: ["Omeprazole", "Famotidine", "Antacids (Tums/Gaviscon)"],
+        homeRemedies: ["Aloe vera juice", "Ginger tea", "Chewing gum (increases saliva)", "Baking soda in water"]
+    },
+
+    // --- NEUROLOGICAL & MENTAL ---
+    "migraine": {
+        name: "Migraine",
+        causes: ["Hormonal changes", "Triggers (wine, cheese)", "Stress", "Weather"],
+        symptoms: ["Unilateral throbbing pain", "Aura (visual starts)", "Nausea", "Light sensitivity"],
+        precautions: ["Regular sleep schedule", "Hydration", "Magnesium supplements"],
+        medications: ["Sumatriptan", "Rizatriptan", "Topiramate (preventive)", "Excedrin"],
+        homeRemedies: ["Lavender oil inhalation", "Ginger tea for nausea", "Cold compress on neck", "Dark room rest"]
+    },
+    "alzheimer": {
+        name: "Alzheimer's Disease",
+        causes: ["Amyloid plaques", "Tau tangles", "Genetics (APOE-e4)", "Age"],
+        symptoms: ["Short-term memory loss", "Confusion about time/place", "Word-finding difficulty", "Mood changes"],
+        precautions: ["Cognitive stimulation", "Mediterranean diet", "Social engagement"],
+        medications: ["Donepezil", "Memantine", "Rivastigmine"],
+        homeRemedies: ["Coconut oil (MCTs)", "Turmeric (Curcumin)", "Omega-3 fatty acids", "Music therapy"]
+    },
+    "depression": {
+        name: "Major Depressive Disorder",
+        causes: ["Neurotransmitter imbalance", "Trauma", "Chronic illness", "Genetics"],
+        symptoms: ["Persistent sadness", "Loss of interest (Anhedonia)", "Changes in sleep/appetite", "Fatigue"],
+        precautions: ["Regular routine", "Avoid isolation", "Exercise (natural endorphins)"],
+        medications: ["Sertraline (Zoloft)", "Fluoxetine (Prozac)", "Escitalopram", "Bupropion"],
+        homeRemedies: ["St. John's Wort (consult doctor)", "Saffron extract", "Omega-3s", "Light therapy"]
+    },
+    "anxiety": {
+        name: "Generalized Anxiety Disorder",
+        causes: ["Stress pickup", "Brain chemistry", "Genetics"],
+        symptoms: ["Excessive worry", "Restlessness", "Rapid heart rate", "Insomnia"],
+        precautions: ["Limit caffeine/alcohol", "Sleep hygiene", "Stress management"],
+        medications: ["Buspirone", "Escitalopram", "Alprazolam (short-term)"],
+        homeRemedies: ["Chamomile tea", "Ashwagandha", "Valerian root", "Box breathing technique"]
+    },
+
+    // --- SKIN & OTHERS ---
+    "acne": {
+        name: "Acne Vulgaris",
+        causes: ["Clogged pores", "Bacteria (C. acnes)", "Hormones", "Diet"],
+        symptoms: ["Pimples", "Blackheads", "Cysts", "Oily skin"],
+        precautions: ["Don't touch face", "Non-comedogenic products", "Clean pillowcases"],
+        medications: ["Benzoyl Peroxide", "Salicylic Acid", "Tretinoin", "Doxycycline"],
+        homeRemedies: ["Tea tree oil (diluted)", "Honey mask", "Green tea extract application", "Zinc supplements"]
+    },
+    "eczema": {
+        name: "Eczema (Atopic Dermatitis)",
+        causes: ["Immune system overreaction", "Dry skin", "Irritants"],
+        symptoms: ["Itchy, red, cracked skin", "Inflammation", "Patches"],
+        precautions: ["Avoid harsh soaps", "Moisturize frequently", "Wear cotton"],
+        medications: ["Hydrocortisone cream", "Tacrolimus ointment", "Antihistamines"],
+        homeRemedies: ["Colloidal oatmeal bath", "Coconut oil", "Aloe vera", "Apple cider vinegar bath"]
+    },
+    "conjunctivitis": {
+        name: "Conjunctivitis (Pink Eye)",
+        causes: ["Viruses", "Bacteria", "Allergies"],
+        symptoms: ["Redness", "Gritty feeling", "Discharge/Crusting", "Tearing"],
+        precautions: ["Wash hands", "Don't share towels/makeup", "Discard old lenses"],
+        medications: ["Antibiotic drops (Moxifloxacin)", "Antihistamine drops", "Artificial tears"],
+        homeRemedies: ["Warm compress (for bacterial)", "Cold compress (for allergic)", "Honey water drops (traditional)", "Rose water"]
+    },
+    "anemia": {
+        name: "Iron Deficiency Anemia",
+        causes: ["Blood loss", "Poor diet", "Absorption issues"],
+        symptoms: ["Fatigue", "Pale skin", "Cold hands", "Brittleness nails"],
+        precautions: ["Dietary changes", "Treat underlying bleeding"],
+        medications: ["Ferrous Sulfate", "Iron Dextran", "Vitamin C (aids absorption)"],
+        homeRemedies: ["Spinach and legumes", "Jaggery", "Cooking in cast iron", "Beetroot juice"]
+    },
+    "uti": {
+        name: "Urinary Tract Infection (UTI)",
+        causes: ["E. coli bacteria", "Dehydration", "Holding urine"],
+        symptoms: ["Burning urination", "Frequent urge", "Cloudy urine", "Pelvic pain"],
+        precautions: ["Hydration", "Wipe front to back", "Urinate after sex"],
+        medications: ["Nitrofurantoin", "Trimethoprim", "Ciprofloxacin"],
+        homeRemedies: ["Cranberry juice (unsweetened)", "D-Mannose", "Probiotics", "Plenty of water"]
     }
 };
 
