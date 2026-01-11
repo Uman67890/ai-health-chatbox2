@@ -16,7 +16,7 @@ This project is a high-impact collaborative effort. Every team member listed bel
 - **GitHub**: [@uman67890](https://github.com/uman67890)
 - **Key Contributions**: React component architecture, state management, and AI integration logic.
 
-### 🏥 Ayush (Medical Data Specialist)
+### 🏥 Ayush (support developer)
 - **GitHub**: [@ayushbhatt3255-creator](https://github.com/ayushbhatt3255-creator)
 - **Key Contributions**: Medical database curation, diagnostic heuristic logic, and wellness content.
 
