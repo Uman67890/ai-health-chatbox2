@@ -96,12 +96,18 @@
   margin-top: 0.5rem;
   opacity: 0.7;
   display: block;
+  color: var(--text-muted);
 }
 
 .input-area {
   padding: 1.5rem;
-  background: white;
-  border-top: 1px solid #e2e8f0;
+  background: var(--card-bg);
+  border-top: 1px solid var(--card-border);
+}
+
+[data-theme="dark"] .input-area {
+  background: var(--card-bg);
+  border-top-color: var(--card-border);
 }
 
 .nav-actions {
@@ -666,6 +672,27 @@
   border-color: #e2e8f0;
 }
 
+[data-theme="dark"] .medical-card .section {
+  background: var(--card-bg);
+  border-color: var(--card-border);
+  box-shadow: var(--shadow-sm);
+}
+
+[data-theme="dark"] .medical-card h3,
+[data-theme="dark"] .medical-card h4,
+[data-theme="dark"] .medical-card .summary {
+  color: var(--text-main);
+}
+
+[data-theme="dark"] .medical-card .summary {
+  background: var(--background-secondary);
+  border-color: var(--card-border);
+}
+
+[data-theme="dark"] .medical-card li {
+  color: var(--text-main);
+}
+
 .medical-card h4 {
   font-size: 1rem;
   text-transform: none;
@@ -1068,6 +1095,22 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 1.5rem;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+}
+
+[data-theme="dark"] .dashboard-header-premium {
+  background: var(--glass-bg);
+  /* Uses dark glass bg */
+  border-color: var(--glass-border);
+}
+
+[data-theme="dark"] .dashboard-header-premium h2 {
+  color: var(--text-main);
+}
+
+[data-theme="dark"] .dashboard-header-premium p {
+  color: var(--text-muted);
 }
 
 .header-info {
@@ -1118,6 +1161,11 @@
   background: rgba(0, 0, 0, 0.05);
   padding: 0.4rem;
   border-radius: 1rem;
+}
+
+[data-theme="dark"] .dashboard-tabs {
+  background: rgba(255, 255, 255, 0.05);
+  /* Light bg for tabs container in dark mode */
 }
 
 .dashboard-tabs button {
@@ -1223,6 +1271,14 @@
   color: var(--text-muted);
 }
 
+[data-theme="dark"] .card-value {
+  color: var(--text-main);
+}
+
+[data-theme="dark"] .card-top .label {
+  color: var(--text-muted);
+}
+
 .card-footer {
   font-size: 0.75rem;
   color: var(--text-muted);
@@ -1247,6 +1303,16 @@
   gap: 0.5rem;
   margin-bottom: 1.5rem;
   color: var(--text-main);
+}
+
+.log-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  box-shadow: var(--shadow-sm);
+}
+
+[data-theme="dark"] .log-card {
+  box-shadow: var(--shadow-md);
 }
 
 .input-group {
@@ -1450,6 +1516,16 @@
   flex-direction: column;
   align-items: center;
   gap: 1rem;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+}
+
+[data-theme="dark"] .data-missing-card h3 {
+  color: var(--text-main);
+}
+
+[data-theme="dark"] .data-missing-card p {
+  color: var(--text-muted);
 }
 
 .action-btn {
