@@ -79,8 +79,8 @@ This project is the result of a high-impact collaboration between four dedicated
 
 - **[Gaurav](https://github.com/gk06012006-cpu)** - Lead Developer
 - **[Daksh](https://github.com/dakshpathak175-byte)** - UI/UX Designer
-- **[Umang](https://github.com/uman67890)** - Frontend Developer
-- **[Ayush](https://github.com/ayushbhatt3255-creator)** - Support Developer
+- **[Umang](https://github.com/uman67890)** - web developer
+- **[Ayush](https://github.com/ayushbhatt3255-creator)** - Support Developer and medical specialist
 
 ---
 
@@ -94,7 +94,3 @@ This project is the result of a high-impact collaboration between four dedicated
 This application is for informational purposes only and does not provide medical diagnoses or professional medical advice. Always consult with a qualified healthcare provider for medical concerns.
 
 ---
-
-<p align="center">
-  Built with 💙 for the Global Community | Licensed under MIT
-</p>
