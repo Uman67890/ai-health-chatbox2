@@ -105,8 +105,8 @@ sequenceDiagram
 ---
 
 ## 🎥 Demo & Prototype
--   **Live Repository**: [Wellness AI GitHub](https://github.com/Uman67890/ai-health-chatbox2)
--   **Video Walkthrough**: [Watch Demo Video](https://github.com/Uman67890/ai-health-chatbox2/assets)
+-   **Live Repository**: [Wellness AI GitHub](https://uman67890.github.io/ai-health-chatbox2/)
+
 
 ---
 
