@@ -1,123 +1,125 @@
-# 🏥 Wellness AI: Advanced Health Companion
+# 🏥 Wellness AI: Global Health Companion
 
 ![Wellness AI Banner](./public/banner.png)
 
-## 📌 Overview
-**Wellness AI** is a cutting-edge, privacy-first healthcare assistant designed for the digital age. It combines a high-performance **React 19** frontend with a sophisticated **Local Intelligence Engine** and **Wikipedia-driven Heuristics** to provide instant, reliable health guidance without compromising user data privacy.
+## 📌 Project Overview
+**Wellness AI** is a premium health assistant designed to bridge the gap between complex medical information and everyday accessibility. Built with **React 19**, **TypeScript**, and **Framer Motion**, it provides a sleek, glassmorphic interface for instant triage, wellness advice, and global health knowledge.
+
+The project prioritizes **Privacy-First Intelligence**:
+- **Offline-Ready Logic**: Core wellness and emergency data are handled locally.
+- **Instant Triage**: Automatically scans for high-risk symptoms before any other processing.
+- **Heuristic Knowledge Extraction**: A custom string-matching engine that transforms unstructured data into clinical cards.
 
 ---
 
 ## 🛑 Problem Statement
-Modern health information seeking is flawed by three major hurdles:
-1.  **Cyberchondria**: Search engines often show worst-case scenarios for minor symptoms, leading to extreme user anxiety.
-2.  **Latency in Emergencies**: During critical moments (e.g., stroke symptoms), users shouldn't wait for heavy pages to load or sift through ads.
-3.  **Data Surveillance**: Sensitive health inquiries are often tracked by third-party cookies and cloud-based AI, raising significant privacy concerns.
+1.  **Health Anxiety**: Generic search results often present worst-case scenarios for minor symptoms, causing unnecessary panic.
+2.  **Safety Delays**: During medical emergencies, users often waste time sifting through irrelevant articles instead of receiving immediate life-saving instructions.
+3.  **Data Privacy**: Many AI tools send sensitive health queries to external servers, creating privacy risks for users.
 
 ## ✅ Proposed Solution
-Wellness AI acts as an **Instant Triage & Education Layer**:
--   **Local-First Response**: Core medical data is stored locally for zero-latency, offline-capable interactions.
--   **Emergency Shield**: A dedicated keyword scanner that redirects users to life-saving instructions immediately upon detecting high-risk terms.
--   **Structured Knowledge**: Automatically parses complex medical data into a "Rich Clinical Card" format—separating symptoms, precautions, and medications for maximum clarity.
--   **Glassmorphic UX**: A soothing, premium interface designed to lower heart rates and focus the user on actionable advice.
+Wellness AI acts as an **Instant Intelligence Layer**:
+-   **Local Triage Engine**: Detects life-threatening keywords immediately and provides instant first-aid instructions.
+-   **Structured Medical Cards**: Parsers unstructured Wikipedia data and local disease logs into clear, actionable segments (Symptoms, Precautions, Medications, Remedies).
+-   **Calm UI/UX**: Uses glassmorphism and smooth animations to reduce user stress during health-related interactions.
 
 ---
 
-## 📊 System Architecture & Logic
+## 📊 System Logic & Architecture
 
-### 1. Decision-Logic Flowchart (Flowchart)
-This flowchart demonstrates the internal decision-making process for every message sent by the user:
+### 1. Message Processing Flowchart
+This flowchart captures the exact logic implemented in `useHealthAI.ts` and `medicalInfoService.ts`:
 
 ```mermaid
 graph TD
-    Start([User Message]) --> Scan[Emergency Keyword Scan]
-    Scan -->|Match| Emergency[Display 🚨 Emergency Protocol]
-    Scan -->|No Match| Wellness{Is it Wellness Tip?}
+    User([User Message]) --> LocalCheck{Local Response Engine}
     
-    Wellness -->|Yes| WPillars[Retrieve 🧘 Wellness Pillar]
-    Wellness -->|No| LocalDB{Local Disease Match?}
+    LocalCheck -->|Match "All Disease"| Directory[Show Disease Directory Card]
+    LocalCheck -->|Match Emergency Keyword| Emergency[Show 🚨 Emergency Protocol]
+    LocalCheck -->|Match Wellness Keyword| Tip[Retrieve specific 🧘 Wellness Tip]
+    LocalCheck -->|Match Greeting| Hi[Friendly Greeting]
     
-    LocalDB -->|Found| RichCard[Render 🏥 Local Clinical Card]
-    LocalDB -->|Not Found| WikiAPI[Fetch Wikipedia Summary]
+    LocalCheck -->|No Initial Match| MedSearch{Find Medical Info}
+    
+    MedSearch -->|Check Local Conditions| LocalResult[Render 🏥 Local Clinical Card]
+    MedSearch -->|No Local Match| WikiAPI[Fetch Wikipedia Summary]
     
     WikiAPI -->|Success| Heuristic[Run 🧠 Heuristic Extraction Engine]
     Heuristic --> ClinicalCard[Render 🧬 Dynamic Clinical Card]
     
     WikiAPI -->|Fail| Default[Generic AI Response]
     
-    Emergency --> End([End User Journey])
-    WPillars --> End
-    RichCard --> End
+    Directory --> End([Display in UI])
+    Emergency --> End
+    Tip --> End
+    Hi --> End
+    LocalResult --> End
     ClinicalCard --> End
     Default --> End
 ```
 
-### 2. Data Flow Diagram (DFD)
-How data propagates through the system from input to UI rendering:
+### 2. Data Propagation Diagram
+How data flows through the application's core functions:
 
 ```mermaid
 sequenceDiagram
     autonumber
-    participant U as User Interface
-    participant S as useHealthAI Hook
-    participant L as Local Knowledge Base
+    participant U as UI Component (App.tsx)
+    participant H as useHealthAI Hook
+    participant S as Medical Info Service
     participant W as Wikipedia REST API
-    participant H as Heuristic Engine
 
-    U->>S: Submits string (e.g., "Flu symptoms")
-    Note over S: Emergency & Wellness filters applied
-    S->>L: Query check (local-conditions.ts)
-    alt Local Data Available
-        L-->>S: returns MedicalCondition Object
-    else Requesting External Info
-        S->>W: GET /api/rest_v1/page/summary/
-        W-->>S: returns Raw JSON Summary
-        S->>H: processText(summary)
-        H->>H: Multi-pattern Keyword Matching
-        H-->>S: returns Structured MedicalInfo
+    U->>H: sendMessage(text)
+    H->>H: generateLocalResponse(text)
+    alt Local Trigger (Emergency/Wellness)
+        H-->>U: renders immediate message
+    else Deep Search Required
+        H->>S: fetchMedicalInfo(text)
+        S->>S: Scan local-conditions.ts
+        alt Local Condition Found
+            S-->>H: return Structured Object
+        else API Fetch
+            S->>W: GET /api/rest_v1/page/summary/
+            W-->>S: return Raw JSON Summary
+            S->>S: extractSection(Heuristic Engine)
+            S-->>H: return Structured MedicalInfo
+        end
+        H-->>U: Update messages state (Bot Card)
     end
-    S->>U: Update State & Animate Rich Card
 ```
 
 ---
 
 ## 🧪 Research Work & Reference
+
 ### Methodology
-1.  **AI Heuristics vs. LLMs**: Research was conducted on minimizing the hardware footprint. By using pattern-based heuristic extraction instead of a full LLM (Large Language Model), we achieved a **90% reduction in battery consumption** and ensured 100% privacy.
-2.  **UX for Crisis**: Inspired by "Calm Technology" principles, we implemented a 0.8s "Thinking Delay" to simulate human-like interaction, which user studies suggest reduces stress during health searches.
-3.  **Medical Accuracy**: Triage keywords were cross-referenced with **CDC** and **WHO** guidelines to ensure high-risk symptoms (Chest pain, slurred speech) trigger the correct emergency alerts.
+1.  **NLP Heuristics**: Instead of heavy LLMs, we developed a fast, pattern-based extraction algorithm (`extractSection`) that scans text for keyword density to identify symptoms, precautions, and treatments.
+2.  **UX for Health**: Research-backed "Thinking Delay" (0.8s) simulated to provide a natural, reassuring feel while ensuring data privacy (100% Client-side).
+3.  **Triage Verification**: Emergency keywords (Chest pain, Stroke, Seizure) were selected based on standard triage protocols to trigger the `EMERGENCY_MESSAGE`.
 
 ### References
--   **WHO Global Health Observatory**: For disease prevalence data.
--   **Wikipedia REST API Documentation**: For dynamic scaling of knowledge.
--   **Framer Motion Documentation**: For advanced orchestration of glassmorphic transitions.
+-   **Wikipedia REST API**: Source for the Global Knowledge Base.
+-   **Standard Triage Protocols**: Informing the Emergency Keyword List.
+-   **WHO Guidelines**: Used for curating `LOCAL_CONDITIONS` (e.g., Malaria, Typhoid).
 
 ---
 
 ## 🎥 Demo & Prototype
--   **Live Prototype**: [Launch Wellness AI](https://github.com/Uman67890/ai-health-chatbox2)
--   **Project Walkthrough**: [Watch Demo Video](https://github.com/Uman67890/ai-health-chatbox2/assets)
-
----
-
-## ✨ Features Breakdown
--   🧠 **Smart Triage**: Real-time detection of 50+ emergency keywords.
--   🏥 **Rich Clinical Cards**: Detailed insights on 20+ common global diseases out-of-the-box.
--   💊 **Pharmacy Insights**: Dosage and precaution summaries for common OTC medications.
--   🧘 **Wellness Engine**: 10 fundamental pillars of health for daily improvement.
--   📱 **Full Responsiveness**: Optimized for seamless use across Mobile, Tablet, and Desktop.
+-   **Live Repository**: [Wellness AI GitHub](https://github.com/Uman67890/ai-health-chatbox2)
+-   **Video Walkthrough**: [Watch Demo Video](https://github.com/Uman67890/ai-health-chatbox2/assets)
 
 ---
 
 ## 🤝 The Team (Equal Contributions)
--   **[Gaurav](https://github.com/gk06012006-cpu)**: Lead Backend & System Logic
--   **[Daksh](https://github.com/dakshpathak175-byte)**: UI/UX & Glassmorphism Design
--   **[Umang](https://github.com/uman67890)**: Frontend Architecture & Integration
--   **[Ayush](https://github.com/ayushbhatt3255-creator)**: Research & Content Optimization
+-   **[UMANG](https://github.com/uman67890)**: Lead Developer & Architect
+-   **[DAKSH](https://github.com/dakshpathak175-byte)**: UI/UX Designer
+-   **[GAURAV](https://github.com/gk06012006-cpu)**: Frontend Engineer
+-   **[AYUSH](https://github.com/ayushbhatt3255-creator)**: Support Developer
 
 ---
 
 ## ⚖️ Disclaimer
-*Wellness AI is a tool for information and educational purposes. It does not provide medical diagnoses. Always call local emergency services in case of a medical crisis.*
+*Wellness AI is a tool for information and educational purposes only. It does not provide medical diagnoses. Always call local emergency services in case of a medical crisis.*
 
 ---
 <p align="center">
