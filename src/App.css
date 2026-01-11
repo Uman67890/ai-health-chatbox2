@@ -909,3 +909,57 @@
     font-size: 2rem;
   }
 }
+
+.equal-contribution-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #ffd70011, #ffd70022);
+  border: 1px solid #ffd70044;
+  color: #b8860b;
+  padding: 8px 16px;
+  border-radius: 100px;
+  width: fit-content;
+  margin: 1.5rem auto 0;
+  font-weight: 600;
+  font-size: 0.9rem;
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.1);
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.role-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.member-role {
+  margin-bottom: 0 !important;
+}
+
+.contribution-tag {
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #b8860b;
+  background: #ffd70011;
+  padding: 2px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  border: 1px solid #ffd70022;
+}

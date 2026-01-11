@@ -1,10 +1,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { User, Code2, Sparkles, Github, ExternalLink } from 'lucide-react';
+import { User, Code2, Sparkles, Github, ExternalLink, Award } from 'lucide-react';
 
 const teamMembers = [
     {
         name: 'UMANG',
+        github: 'uman67890',
         role: 'Lead Developer & Architect',
         contribution: 'Designed the core architecture, AI integration logic, and seamless health tracking system. Spearheaded the global health registry development.',
         skills: ['React', 'TypeScript', 'System Design'],
@@ -12,6 +13,7 @@ const teamMembers = [
     },
     {
         name: 'DAKSH',
+        github: 'dakshpathak175-byte',
         role: 'UI/UX Designer',
         contribution: 'Crafted the elegant "Wellness AI" design system, focused on glassmorphism and premium user experience. Refined the mobile-responsive layouts.',
         skills: ['Framer Motion', 'Vanilla CSS', 'UI Design'],
@@ -19,6 +21,7 @@ const teamMembers = [
     },
     {
         name: 'GAURAV',
+        github: 'gk06012006-cpu',
         role: 'Frontend Engineer',
         contribution: 'Implemented complex medical visualization cards and interactive dashboard metrics. Optimized performance for high-speed AI interactions.',
         skills: ['React Hooks', 'Data Visualization', 'Optimization'],
@@ -26,6 +29,7 @@ const teamMembers = [
     },
     {
         name: 'AYUSH',
+        github: 'ayushbhatt3255-creator',
         role: 'Medical Data Specialist',
         contribution: 'Curated the comprehensive disease database and ensured medical accuracy across symptoms, remedies, and precautions. Built the wellness tips engine.',
         skills: ['Data Curation', 'Health Science', 'Backend Services'],
@@ -40,6 +44,10 @@ export const TeamDetails: React.FC = () => {
                 <Sparkles className="icon-pulse" size={32} />
                 <h2>Individual Contribution</h2>
                 <p>Meet the brilliant minds behind Wellness AI</p>
+                <div className="equal-contribution-badge">
+                    <Award size={16} />
+                    <span>Equal Contributors</span>
+                </div>
             </header>
 
             <div className="team-grid">
@@ -57,9 +65,12 @@ export const TeamDetails: React.FC = () => {
                         </div>
 
                         <div className="member-info">
-                            <span className="member-role" style={{ color: member.color, background: `${member.color}11` }}>
-                                {member.role}
-                            </span>
+                            <div className="role-row">
+                                <span className="member-role" style={{ color: member.color, background: `${member.color}11` }}>
+                                    {member.role}
+                                </span>
+                                <span className="contribution-tag">Equal Contribution</span>
+                            </div>
                             <h3>{member.name}</h3>
                             <p className="member-contribution">{member.contribution}</p>
 
@@ -71,7 +82,14 @@ export const TeamDetails: React.FC = () => {
                         </div>
 
                         <div className="card-footer">
-                            <button className="icon-btn"><Github size={16} /></button>
+                            <a
+                                href={`https://github.com/${member.github}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="icon-btn"
+                            >
+                                <Github size={16} />
+                            </a>
                             <button className="icon-btn"><ExternalLink size={16} /></button>
                         </div>
                     </motion.div>
