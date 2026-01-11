@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Activity, Moon, Scale, PlusCircle, Heart, Ruler, Info, Trophy, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Activity, Moon, Scale, PlusCircle, Heart, Info, Trophy, AlertCircle } from 'lucide-react';
 import { saveMetric, getAllMetrics } from '../services/healthTrackingService';
 import { type MetricType } from '../types';
 
@@ -44,11 +44,17 @@ export const HealthDashboard: React.FC = () => {
         const latestBPDia = metrics.blood_pressure_dia.length > 0 ? metrics.blood_pressure_dia[metrics.blood_pressure_dia.length - 1].value : null;
 
         if (!latestWeight || !latestHeight || !latestSleep || !latestBPSys || !latestBPDia) {
-            return { score: 0, status: 'Incomplete Data', color: '#64748b' };
+            return {
+                score: 0,
+                status: 'Incomplete Data',
+                color: '#64748b',
+                bmi: '0',
+                breakdown: { bmiScore: 0, sleepScore: 0, bpScore: 0 }
+            };
         }
 
         let score = 0;
-        let breakdown = [];
+        let breakdown = { bmiScore: 0, sleepScore: 0, bpScore: 0 };
 
         // BMI Calculation (Weight Score: 30)
         const bmi = latestWeight / ((latestHeight / 100) ** 2);
@@ -58,6 +64,7 @@ export const HealthDashboard: React.FC = () => {
         else if (bmi < 18.5) bmiScore = 15;
         else bmiScore = 10;
         score += bmiScore;
+        breakdown.bmiScore = bmiScore;
 
         // Sleep Score (30)
         let sleepScore = 0;
@@ -65,6 +72,7 @@ export const HealthDashboard: React.FC = () => {
         else if (latestSleep >= 6 || latestSleep <= 10) sleepScore = 20;
         else sleepScore = 10;
         score += sleepScore;
+        breakdown.sleepScore = sleepScore;
 
         // Blood Pressure Score (40)
         let bpScore = 0;
@@ -73,6 +81,7 @@ export const HealthDashboard: React.FC = () => {
         else if (latestBPSys < 140 || latestBPDia < 90) bpScore = 20;
         else bpScore = 10;
         score += bpScore;
+        breakdown.bpScore = bpScore;
 
         let status = 'Fair';
         let color = '#f59e0b';
@@ -80,7 +89,7 @@ export const HealthDashboard: React.FC = () => {
         else if (score >= 70) { status = 'Good'; color = '#0ea5e9'; }
         else if (score < 50) { status = 'Needs Improvement'; color = '#ef4444'; }
 
-        return { score, status, color, bmi: bmi.toFixed(1), breakdown: { bmiScore, sleepScore, bpScore } };
+        return { score, status, color, bmi: bmi.toFixed(1), breakdown };
     };
 
     const fitness = calculateFitnessScore();
