@@ -1,50 +1,64 @@
-# 🏥 Wellness AI Chatbot
+# 🏥 Wellness AI: Global Health Companion
+> **Hackathon Submission 2026** | *Privacy-First, AI-Driven, Life-Saving.*
 
 A premium, responsive AI-powered wellness companion built with **React**, **TypeScript**, and **Framer Motion**. This application provides general wellness advice, symptom information, and emergency alerts through a sleek, glassmorphic interface.
 
 ![AI Wellness Chatbot](https://images.unsplash.com/photo-1576091160550-217359f42f8c?auto=format&fit=crop&q=80&w=1000)
 
-### The Problem
-Accessing quick, non-alarming health information is difficult. Users often face "information overload" when searching for simple symptoms, or worse, they miss critical warning signs of life-threatening emergencies.
+---
 
-### The Solution: Wellness AI
-A **privacy-first**, **offline-ready** triage companion that prioritizes safety. By using local heuristic matching, it delivers instant guidance without sending sensitive health data to a server.
+## 🚀 Hackathon Spotlight
+**Wellness AI** was designed to bridge the gap between complex medical information and everyday accessibility. In a world where health anxiety is at an all-time high, our goal was to create a tool that is:
+1.  **Fast**: Zero-latency responses.
+2.  **Private**: All processing happens on the device.
+3.  **Human-Centric**: Designed for calm, clear communication during stressful moments.
 
-###  Key Value Propositions
+## 🛑 The Problem
+Accessing quick, non-alarming health information is difficult. Users often face "information overload" when searching for simple symptoms, or worse, they miss critical warning signs of life-threatening emergencies. The "Dr. Google" effect often leads to unnecessary panic.
+
+## ✅ The Solution: Wellness AI
+A **privacy-first**, **offline-ready** triage companion that prioritizes safety. By using local heuristic matching and a curated medical knowledge base, it delivers instant guidance without sending sensitive health data to any server.
+
+### 🌟 Key Value Propositions
 - **Zero Latency**: Local processing ensures immediate responses even in low-connectivity areas.
 - **Privacy by Design**: No backend, no cookies, no tracking. Your health queries are yours alone.
 - **Calm UX**: Designed to reduce anxiety through a soothing Glassmorphic interface and clear, helpful language.
-- **Emergency-First Logic**: Intelligent triage system that detects high-risk keywords before processing general wellness advice.
+- **Emergency-First Logic**: Intelligent triage system that detects high-risk keywords (*chest pain, stroke, etc.*) before processing general wellness advice.
 
-## ✨ Features
+---
+
+## ✨ Core Features
 
 - 🧠 **Smart Keyword Matching**: Instant responses for symptoms, common diseases, and medication basics.
-- 🏥 **Disease Knowledge Base**: Information on conditions like Diabetes, Hypertension, and Flu.
-- 💊 **Medication Basics**: Simple usage guidelines for common over-the-counter meds like Paracetamol and Ibuprofen.
-- 🚨 **Emergency Detection**: Scans for high-risk keywords (e.g., "heart attack") and provides immediate instructions.
-- 🧘 **Wellness Tips**: Randomly generated health and wellness advice.
--  **Premium UI/UX**: 
+- 🏥 **Global Disease Registry**: Comprehensive information on conditions like Malaria, Typhoid, Diabetes, and hypertension.
+- 💊 **Medication Guidance**: Simple usage guidelines for common over-the-counter meds (Paracetamol, Ibuprofen).
+- 🚨 **Emergency Detection**: Scans for high-risk keywords and provides immediate life-saving instructions.
+- 🧘 **Wellness Pillars**: 10 essential health tips delivered through a dynamic "Wellness Engine."
+- **Premium UI/UX**: 
   - Dynamic animations using Framer Motion.
   - Modern "Glassmorphism" design system.
   - Fully responsive for mobile and desktop.
   - Simulated "AI Thinking" delay for a natural feel.
--  **Safe & Secure**: Provides general information with medical disclaimers.
 
-##  Tech Stack
+---
 
-- **Framework**: React 19
-- **Language**: TypeScript
+## 🛠️ Tech Stack
+
+- **Framework**: React 19 + Vite
+- **Language**: TypeScript (Type-safe infrastructure)
 - **Styling**: Vanilla CSS (Custom Design System)
 - **Icons**: Lucide React
 - **Animations**: Framer Motion
-- **Build Tool**: Vite
+- **Knowledge Base**: Curated Medical Heuristics + Wikipedia API Integration
 
-##  Installation & Setup
+---
+
+## 🧱 Setup & Installation
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/Uman67890/ai-health-chatbox.git
-   cd ai-health-chatbox
+   git clone https://github.com/Uman67890/ai-health-chatbox2.git
+   cd ai-health-chatbox2
    ```
 
 2. **Install dependencies**:
@@ -52,41 +66,35 @@ A **privacy-first**, **offline-ready** triage companion that prioritizes safety.
    npm install
    ```
 
-3. **Start the development server**:
+3. **Launch the Experience**:
    ```bash
    npm run dev
    ```
 
-##  Project Structure
+---
 
-- `src/useHealthAI.ts`: Custom hook containing the AI logic and state management.
-- `src/types.ts`: TypeScript interfaces and the AI knowledge base.
-- `src/App.tsx`: Main UI assembly with animations.
-- `src/App.css`: Core design system and glassmorphic styles.
+## 🤝 The Team (Equal Contributors)
 
-##  Future Roadmap
-
-We are constantly looking to improve Wellness AI. Some planned features include:
--  **Enhanced Health Insights**: Integration with medical APIs for more detailed information.
-- **Health Tracking**: Secure storage for users to track their wellness journey over time.
-- **Voice Interaction**: Accessibility improvements through voice-to-text and text-to-voice.
-- **Multilingual Support**: Providing wellness assistance in multiple languages.
-- **Wearable Integration**: Syncing with devices like Apple Health or Google Fit for real-time health data.
-- **Personalized Plans**: AI-generated nutrition and exercise recommendations based on user goals.
-
-## 🤝 The Team
-
-This project was built with ❤️ by an amazing team of developers and specialists, all of whom contributed equally to the success of Wellness AI.
+This project is the result of a high-impact collaboration between four dedicated individuals:
 
 - **[Gaurav](https://github.com/gk06012006-cpu)** - Lead Developer
 - **[Daksh](https://github.com/dakshpathak175-byte)** - UI/UX Designer
 - **[Umang](https://github.com/uman67890)** - Frontend Developer
 - **[Ayush](https://github.com/ayushbhatt3255-creator)** - Support Developer
 
-## Disclaimer
+---
 
+## 🔮 Future Roadmap
+-  **Wearable Sync**: Real-time heart rate and sleep tracking integration.
+-  **Multilingual Support**: Breaking language barriers in global health.
+-  **Voice Interaction**: Hands-free health assistance.
+-  **Medication Reminders**: Secure local scheduling for prescriptions.
+
+## ⚖️ Disclaimer
 This application is for informational purposes only and does not provide medical diagnoses or professional medical advice. Always consult with a qualified healthcare provider for medical concerns.
 
 ---
 
-<p align="center">Built with 💙 for the Global Community</p>
+<p align="center">
+  Built with 💙 for the Global Community | Licensed under MIT
+</p>
