@@ -50,40 +50,39 @@ const extractSectionFromFullText = (text: string, headerKeywords: string[]): str
 export const fetchMedicalInfo = async (query: string): Promise<MedicalInfo> => {
     const normalizedQuery = query.toLowerCase();
 
-    // 1. Check local massive database first (Instant & Curated)
+    // 1. Check local massive database
+    let conditionData: MedicalCondition | undefined;
     for (const [key, data] of Object.entries(LOCAL_CONDITIONS)) {
         if (normalizedQuery.includes(key) || key.includes(normalizedQuery)) {
-            return {
-                ...data,
-                title: data.name,
-                summary: `Comprehensive details about ${data.name}.`,
-                disclaimer: DISCLAIMER
-            };
+            conditionData = data;
+            break;
         }
     }
 
-    // 2. Fallback: The "Infinite" Wikipedia Parser
-    // We fetch the FULL text (explaintext) to parse specific sections
+    // 2. Fetch from Wikipedia (Always fetch to get Image & Summary)
+    // If we have local data, we use its name for a better search match
     let summary = "";
-    let title = query;
+    let title = conditionData ? conditionData.name : query;
     let imageUrl: string | undefined;
 
-    let symptoms: string[] = [];
-    let precautions: string[] = [];
-    let medications: string[] = [];
-    let causes: string[] = [];
-    let remedies: string[] = [];
+    let wikiSymptoms: string[] = [];
+    let wikiPrecautions: string[] = [];
+    let wikiMedications: string[] = [];
+    let wikiCauses: string[] = [];
+    let wikiRemedies: string[] = [];
 
     try {
+        const searchQuery = conditionData ? conditionData.name : query;
+
         // Search for the best matching page title first
-        const searchRes = await fetch(`https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(query)}&format=json&origin=*`);
+        const searchRes = await fetch(`https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(searchQuery)}&format=json&origin=*`);
         const searchData = await searchRes.json();
 
         if (searchData.query?.search?.[0]) {
-            title = searchData.query.search[0].title;
+            const wikiTitle = searchData.query.search[0].title;
 
             // Now fetch the FULL content for this title
-            const contentRes = await fetch(`https://en.wikipedia.org/w/api.php?action=query&prop=extracts|pageimages&titles=${encodeURIComponent(title)}&explaintext=1&piprop=original&format=json&origin=*`);
+            const contentRes = await fetch(`https://en.wikipedia.org/w/api.php?action=query&prop=extracts|pageimages&titles=${encodeURIComponent(wikiTitle)}&explaintext=1&piprop=original&format=json&origin=*`);
             const contentData = await contentRes.json();
             const pages = contentData.query.pages;
             const pageId = Object.keys(pages)[0];
@@ -93,24 +92,24 @@ export const fetchMedicalInfo = async (query: string): Promise<MedicalInfo> => {
                 const fullText = page.extract || "";
                 summary = fullText.split('\n')[0]; // First paragraph
                 imageUrl = page.original?.source;
+                title = wikiTitle; // Prefer Wiki title for display as it is properly capitalized
 
-                // --- INTELLIGENT PARSING ---
-                console.log("Parsing full article for:", title);
-
-                symptoms = extractSectionFromFullText(fullText, ["Signs and symptoms", "Symptoms", "Presentation", "Characteristics"]);
-                causes = extractSectionFromFullText(fullText, ["Cause", "Causes", "Virology", "Pathology", "Mechanism"]);
-                precautions = extractSectionFromFullText(fullText, ["Prevention", "Screening", "Mitigation"]);
-                medications = extractSectionFromFullText(fullText, ["Treatment", "Management", "Medication", "Therapy"]);
-
-                // For Home Remedies, we look for 'Management', 'Lifestyle', 'Diet' sections
-                remedies = extractSectionFromFullText(fullText, ["Lifestyle", "Diet", "Home remedies", "Self-care", "Alternative medicine"]);
+                // Only run intelligent parsing if we DON'T have local data
+                if (!conditionData) {
+                    console.log("Parsing full article for:", wikiTitle);
+                    wikiSymptoms = extractSectionFromFullText(fullText, ["Signs and symptoms", "Symptoms", "Presentation", "Characteristics"]);
+                    wikiCauses = extractSectionFromFullText(fullText, ["Cause", "Causes", "Virology", "Pathology", "Mechanism"]);
+                    wikiPrecautions = extractSectionFromFullText(fullText, ["Prevention", "Screening", "Mitigation"]);
+                    wikiMedications = extractSectionFromFullText(fullText, ["Treatment", "Management", "Medication", "Therapy"]);
+                    wikiRemedies = extractSectionFromFullText(fullText, ["Lifestyle", "Diet", "Home remedies", "Self-care", "Alternative medicine"]);
+                }
             }
         }
     } catch (error) {
         console.error("Failed to search medical database:", error);
     }
 
-    if (!summary) {
+    if (!summary && !conditionData) {
         return {
             title: title,
             summary: "I searched global medical records but couldn't find a precise match. Please check the spelling or try a more common name.",
@@ -118,15 +117,18 @@ export const fetchMedicalInfo = async (query: string): Promise<MedicalInfo> => {
         };
     }
 
+    // 3. Merge Local + Wiki Data
+    // Prioritize LOCAL data for structure, use WIKI for missing pieces (Image, Summary)
     return {
-        title: title,
-        summary: summary.slice(0, 300) + "...", // Limit summary length
+        title: conditionData ? conditionData.name : title,
+        summary: summary ? (summary.slice(0, 300) + "...") : (conditionData ? `Detailed medical information about ${conditionData.name}.` : "Fetching medical overview..."),
         imageUrl: imageUrl,
-        causes: causes.length > 0 ? causes : undefined,
-        symptoms: symptoms.length > 0 ? symptoms : undefined,
-        precautions: precautions.length > 0 ? precautions : undefined,
-        medications: medications.length > 0 ? medications : undefined,
-        homeRemedies: remedies.length > 0 ? remedies : ["Rest and hydration (General advice -- specific data unavailable)"],
+        causes: conditionData ? conditionData.causes : (wikiCauses.length > 0 ? wikiCauses : undefined),
+        symptoms: conditionData ? conditionData.symptoms : (wikiSymptoms.length > 0 ? wikiSymptoms : undefined),
+        precautions: conditionData ? conditionData.precautions : (wikiPrecautions.length > 0 ? wikiPrecautions : undefined),
+        medications: conditionData ? conditionData.medications : (wikiMedications.length > 0 ? wikiMedications : undefined),
+        homeRemedies: conditionData ? conditionData.homeRemedies : (wikiRemedies.length > 0 ? wikiRemedies : ["Rest and hydration (General advice -- specific data unavailable)"]),
+        diseaseKnowledge: undefined, // Type compat
         disclaimer: DISCLAIMER
     };
 };
